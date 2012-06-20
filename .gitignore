@@ -1,4 +1,4 @@
 *.swp
 *.DS_Store
 *.log
-nodejs/node_modules
+node_modules
