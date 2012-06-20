@@ -1,0 +1,169 @@
+
+
+
+
+  <div class="row">
+    <div class="span12">
+      <h1><%= @weekData[0].date_sod.format("MMMM") %><small> week <%= @weekData[0].date_sod.format("w") %> </small></h1>
+
+      <div class="pagination pagination-centered">
+
+        <ul>
+          <% for day in @weekData: %>
+            <li><a href="#"><h2 <%- 'style="color:#D14;"' if day.date_sod.day() == 0 %> > <%= day.date_sod.format("D") %> <small><%= day.date_sod.format("ddd") %></small></h2>
+              $ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>
+              </a></li>
+          <% end %>
+
+<!--
+          <li><a href="#"><h2>19 <small>Mon</small></h2><span style="text-decoration:line-through;">$12.21</span></a></li>
+          <li><a href="#"><h2>20 <small>Tue</small></h2><span style="color:#666;font-style:italic;">Zero!</span></a></li>
+          <li><a href="#"><h2>21 <small>Wed</small></h2>$42.21 (2)</a></li>
+          <li><a href="#"><h2>22 <small>Thr</small></h2><span style="color:#666;font-style:italic;">Zero!</span></a></li>
+          <li><a href="#"><h2>23 <small>Fri</small></h2><span style="color:#666;font-style:italic;">Zero!</span></a></li>
+          <li><a href="#"><h2>24 <small>Sat</small></h2><span style="color:#666;font-style:italic;">Zero!</span></a></li>
+          <li><a href="#"><h2 style="color:#d14;">25 <small>Sun</small></h2>$42.21 (2)</a></li>
+-->
+        </ul>
+      </div>
+
+       
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="span6">
+      <h1><small>So far, you paid </small><span style="color:#469947;"> $<%= @weekSummary.total_paid %> </span> <small>this week</small></h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Amount</th>
+            <th>Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for bill in (_.filter @weekSummary.bills, (x) -> return x.get('paid').length > 0): %>
+
+          <tr>
+            <td>
+              <h3>
+                <a href="#"><%= bill.get('name') %></a>
+                <% for paid in bill.get('paid'): %>
+                <br/><small style="margin-left:10px;">Paid <span style="color:#469947;font-weight:bold;">$<%= paid.amount %></span> on <%= paid.date.format('MMM D') %></small>
+                <% end %>
+              </h3>
+            </td>
+            <td><h3>$<%= bill.get('amount') %></h3></td>
+            <td>
+              <% if bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) == bill.get('amount'): %>
+                <h3 style="color:#469947;">$<%= bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) %></h3>
+                <span class="label label-success">Fully Paid</span>
+              <% else if bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) < bill.get('amount'): %>
+                <h3 style="color:#3A87AD;">$<%= bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) %></h3>
+                <span class="label label-info">Under Paid</span>
+              <% else if bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) > bill.get('amount'): %>
+                <h3 style="color:#3A87AD;">$<%= bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) %></h3>
+                <span class="label label-info">Over Paid</span>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+
+
+           
+<!--   
+              <div>
+
+                <div class="control-group">
+                  <label class="control-label" for="inputIcon">Paid Amount</label>
+                  <div class="controls">
+                    <input style="width:140px;" type="text">
+                  </div>
+                </div>
+                
+
+                <div class="control-group">
+                  <label class="control-label" for="inputIcon">Paid Date</label>
+                  <div class="controls">
+                    <input style="width:90px;margin-right:10px;vertical-align:top;" type="text" id="datepicker" disabled >
+                  </div>
+                </div>
+
+
+                
+
+                <a href="#" class="btn btn-primary">Save</a><a href="#" style="margin-left:50px;color:#D14;">Cancel</a>
+
+              </div>
+-->
+        </tbody>
+      </table>
+
+    </div>
+    <div class="span6">
+<h1><small>You have </small>  <span  style="color:#F89406;"> $<%= @weekSummary.total_amount %> </span> <small>left to pay</small></h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for bill in (_.filter @weekSummary.bills, (x) -> return x.get('paid').length <= 0): %>
+          <tr>
+            <td><h3><a href="#"><%= bill.get('name') %></a><br/>
+              <% if bill.get('due_date').sod() < moment().sod(): %>
+                    <span class="label label-important">Past Due</span> 
+                  <% else: %>
+<span class="label label-warning">Due</span> 
+              <% end %>
+                <small> <%= bill.get('due_date').eod().fromNow() %></small></h3>
+            </td>
+              
+            </td>
+            <td><h3>$<%= bill.get('amount') %></h3></td>
+            <td><a class="btn" style="width:60px;"  data-toggle="modal" href="#myModal2" >Mark Paid</a></h3>
+                  
+          </tr>
+          <% end %>
+
+
+
+<!--   
+              <div>
+
+                <div class="control-group">
+                  <label class="control-label" for="inputIcon">Paid Amount</label>
+                  <div class="controls">
+                    <input style="width:140px;" type="text">
+                  </div>
+                </div>
+                
+
+                <div class="control-group">
+                  <label class="control-label" for="inputIcon">Paid Date</label>
+                  <div class="controls">
+                    <input style="width:90px;margin-right:10px;vertical-align:top;" type="text" id="datepicker" disabled >
+                  </div>
+                </div>
+
+
+                
+
+                <a href="#" class="btn btn-primary">Save</a><a href="#" style="margin-left:50px;color:#D14;">Cancel</a>
+
+              </div>
+-->
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <hr/>
