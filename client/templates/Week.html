@@ -4,9 +4,9 @@
     <div class="pagination pagination-centered">
       <ul>
         <% for day in @weekData: %>
-        <li>
-          <a href="#">
-            <h2 <%- 'style="color:#D14;"' if day.date_sod.day() == 0 %> >
+        <li data-date="<%- day.date_sod.format('L') %>" >
+          <a href="#" <%- 'rel="tooltip" data-original-title="Today" id="cal_today"' if day.date_sod.format('L') == moment().format('L') %> >
+            <h2 <%- 'style="color:#D14;"' if day.date_sod.day() == 0 or day.date_sod.day() == 6 %> >
               <%= day.date_sod.format("D") %>
               <small><%= day.date_sod.format("ddd") %></small>
             </h2>
@@ -20,13 +20,15 @@
 </div>
 <div class="row">
   <% if @weekSummary.total_paid == 0 and @weekSummary.total_amount == 0: %>
-    <div class="span12" style="text-align:center;">
+    <div  style="text-align:center;">
       <h1><small>No bills to pay for this week! YAY!</small></h1>
     </div>
   <% else: %>
     <div class="span6">
       <% if @weekSummary.total_paid == 0: %>
-        <h1><small>You didn't pay any bills for this week yet...</small></h1>
+        <div style="text-align:center;">
+          <h1><small>You didn't pay any bills for this week yet...</small></h1>
+        </div>
       <% else: %>
         <h1><small>You have paid </small><span style="color:#469947;"> $<%= @weekSummary.total_paid %> </span> <small>this week</small></h1>
         <table class="table" style="margin-top:10px;">
@@ -37,41 +39,18 @@
               <th>Paid</th>
             </tr>
           </thead>
-          <tbody>
-            <% for bill in (_.filter @weekSummary.bills, (x) -> return x.get('paid').length > 0): %>
-            <tr>
-              <td>
-                <h3>
-                  <a href="#"><%= bill.get('name') %></a>
-                  <% for paid in bill.get('paid'): %>
-                    <br/><small style="margin-left:10px;">Paid <span style="color:#469947;font-weight:bold;">$<%= paid.amount %></span> on <%= paid.date.format('MMM D') %> <%- '<span class="label label-important">Late</span>' if bill.get('due_date').sod() < paid.date.sod() %></small>
-                  <% end %>
-                </h3>
-              </td>
-              <td>
-                <h3>$<%= bill.get('amount') %></h3>
-              </td>
-              <td>
-                <h3 style="color:#469947;">$<%= bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) %></h3>
-                <% if bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) == bill.get('amount'): %>
-                  <span class="label label-success">Fully Paid</span>
-                <% else if bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) < bill.get('amount'): %>
-                  <span class="label label-info">Under Paid</span>
-                <% else if bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) > bill.get('amount'): %>
-                  <span class="label label-info">Over Paid</span>
-                <% end %>
-              </td>
-            </tr>
-            <% end %>
+          <tbody class="paid-bills-table">
           </tbody>
         </table>
       <% end %>
     </div>
     <div class="span6">
       <% if @weekSummary.total_amount == 0: %>
-        <h1><small>You've paid all bills for this week! YAY!</small></h1>
+        <div style="text-align:center;">
+          <h1><small>You've paid all bills for this week! YAY!</small></h1>
+        </div>
       <% else: %>
-        <h1><small>You have </small>  <span  style="color:#F89406;"> $<%= @weekSummary.total_amount %> </span> <small>left to pay</small></h1>
+        <h1><small>You have </small> <span style="color:#F89406;"> $<%= @weekSummary.total_amount %> </span> <small>left to pay</small></h1>
         <table class="table"  style="margin-top:10px;">
           <thead>
             <tr>
@@ -92,7 +71,7 @@
                   <% end %>
                   <small> <%= bill.get('due_date').eod().fromNow() %></small></h3>
                 </td>
-                <td><h3>$<%= bill.get('amount') %></h3></td>
+                <td><h3 style="color:#F89406;">$<%= bill.get('amount') %></h3></td>
                 <td><a class="btn" style="width:60px;"  data-toggle="modal" href="#myModal2" >Mark Paid</a></h3>      
               </tr>
             <% end %>

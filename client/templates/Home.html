@@ -1,13 +1,5 @@
 <div class="container">
-  <div class="row" style="margin-top:20px;">
-    <div class="span6" style="text-align:center;">
-      <h1 style="font-size:60px;"><small>Total Due </small> $<%= @total_amount %> <small> within <%= @last_bill.get('due_date').fromNow(true) %></small></h1>
-    </div>
-    <div class="span6" style="text-align:center;">
-      <h1 style="font-size:60px;"><small>Today is</small> <%= @today_date.format('MMM D') %> <small><%= @today_date.format('ddd, YYYY') %></small></h1>
-    </div>
-  </div>
-  <div class="row" style="margin-top:40px;">
+  <div class="row" style="margin-top:0px;">
     <div class="span8">
       <h1>Your Bill Payment Summary</h1>
     </div>
@@ -15,6 +7,16 @@
       <a class="btn btn-large btn-primary" href="#" style="font-size:25px;">Add New Bill</a>
     </div>
   </div>
+<hr/>
+  <div class="row" style="margin-top:10px;">
+    <div class="span6" style="text-align:center;">
+      <h1 style="font-size:60px;color:#F89406;"><small>Total Due</small> $<%= @total_amount %> <small>within <%= @last_bill.get('due_date').fromNow(true) %></small></h1>
+    </div>
+    <div class="span6" style="text-align:center;">
+      <h1 style="font-size:60px;color:#08C;"><small>Today is</small> <%= @today_date.format('MMM D') %> <small><%= @today_date.format('ddd, YYYY') %></small></h1>
+    </div>
+  </div>
+  
   <hr/>
   <div id="weekly"></div>
 </div>
