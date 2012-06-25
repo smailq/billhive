@@ -1,4 +1,4 @@
-NodeStrap
+BillHive
 =========
 
-Starter code for nodejs projects
+Manage your bills online.

@@ -27,7 +27,7 @@ class AppRouter extends Backbone.Router
           amount: Math.floor Math.random() * 200
           paid: [
             amount: Math.floor Math.random() * 200
-            date: moment().day(0).subtract 'days', Math.floor Math.random() * 3
+            date: moment().day(0).add 'days', Math.floor Math.random() * 10
           ]
           due_date: moment().day(0).add 'days', Math.floor Math.random() * 30
 

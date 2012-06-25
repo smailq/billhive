@@ -93,5 +93,5 @@ app.configure ->
 
 
 # Start!
-app.listen process.env.PORT
-logger.info 'Server listening at ', process.env.PORT
+app.listen nconf.get 'port'
+logger.info 'Server listening at ', nconf.get 'port'

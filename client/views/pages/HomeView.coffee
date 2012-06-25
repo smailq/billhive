@@ -61,6 +61,7 @@ class HomeView extends Backbone.View
       @weekly.push new WeekView
         weekData: oneWeekData
         weekSummary: @weekSummary[weekNumber]
+        paidBills: _.filter(@weekSummary[weekNumber].bills, (x) -> return x.get('paid').length > 0)
       
 
   render: ->
@@ -71,8 +72,5 @@ class HomeView extends Backbone.View
     for weekly_view in @weekly
       weekly_view.render()
       @$weeklySection.append weekly_view.$el
-
-
-    
 
 module.exports = HomeView
