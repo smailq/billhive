@@ -10,7 +10,7 @@
               <%= day.date_sod.format("D") %>
               <small><%= day.date_sod.format("ddd") %></small>
             </h2>
-            $ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
           </a>
         </li>
         <% end %>

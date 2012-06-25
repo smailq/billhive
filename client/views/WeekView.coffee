@@ -12,9 +12,9 @@ class WeekView extends Backbone.View
     @paidBillsView = []
 
     for billModel in @paidBills
-      @paidBillsView.push(new PaidBillView
+      @paidBillsView.push new PaidBillView
         model: billModel
-      )
+      
 
 
   render: ->
