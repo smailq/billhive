@@ -82,14 +82,26 @@ app.configure ->
       "module.exports = #{eco.precompile body};"
     bundle.addEntry __dirname + '/client/main.coffee'
     return bundle
+
+  app.use(app.router)  
   app.use '/', express.static __dirname + '/static'
-  app.use(app.router)
 
 #
 # TODO: Error Handling
 #
 # app.error (err, req, res, next) ->
 
+app.get '/', (req, res, next) -> 
+  next()
+  ###
+  if not req.session.user?
+    res.redirect '/login'
+  else
+    next()
+  ###
+  
+app.get '/login', (req, res, next) ->
+  res.send 'hihihihi'
 
 
 # Start!

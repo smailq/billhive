@@ -1,0 +1,11 @@
+<td>
+  <h3><a href="#"><%= @bill.get('name') %></a><br/>
+  <% if @bill.get('due_date').sod() < moment().sod(): %>
+    <span class="label label-important">Past Due</span> 
+  <% else: %>
+    <span class="label label-warning">Due</span> 
+  <% end %>
+  <small> <%= @bill.get('due_date').eod().fromNow() %></small></h3>
+</td>
+<td><h3 style="color:#F89406;">$<%= @bill.get('amount') %></h3></td>
+<td><a class="btn" style="width:60px;"  data-toggle="modal" href="#myModal2" >Mark Paid</a></h3>      

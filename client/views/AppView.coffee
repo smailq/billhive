@@ -25,6 +25,6 @@ class AppView extends Backbone.View
     @$el.find('.page').hide()
     @page[page].$el.show()
 
-    $('#cal_today', @$el).tooltip('show')
+    
 
 module.exports = AppView
