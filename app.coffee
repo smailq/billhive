@@ -1,5 +1,7 @@
 require 'coffee-script'
 
+fs = require 'fs'
+
 # HTTP framework
 express = require 'express'
 # Underscore utils
@@ -92,16 +94,20 @@ app.configure ->
 # app.error (err, req, res, next) ->
 
 app.get '/', (req, res, next) -> 
-  next()
-  ###
+  
+
   if not req.session.user?
-    res.redirect '/login'
+    res.redirect '/landing'
   else
     next()
-  ###
   
-app.get '/login', (req, res, next) ->
-  res.send 'hihihihi'
+
+templates = 
+  landing: fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
+
+app.get '/landing', (req, res, next) ->
+  # TODO use templates var later
+  res.send eco.render fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
 
 
 # Start!
