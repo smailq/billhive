@@ -78,7 +78,7 @@
        </div>
        <div class="span4">
           <div class="well">
-            <h2>Deployed</h2>
+            <h2>Recently Deployed</h2>
             <ul id="inprogress-list">
               <% for card in @deployed: %>
                 <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
