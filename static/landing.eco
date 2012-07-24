@@ -34,7 +34,6 @@
     })();
 
   </script>
-  
 </head>
 <body>
   <div id="wrapper">
@@ -50,7 +49,7 @@
           <div class="span6 hero-unit" style="width:630px;">
             <p>This site is currently in heavy development as a side project.</p>
             <hr/>
-            <p>Built with : <a href="http://nodejs.org/">Node.js</a>, <a href="http://backbonejs.org/">Backbone.js</a>, <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, <a href="http://www.mongodb.org/">MongoDB</a>, and the status below are generated from <a href="https://trello.com/b/RS0psfP1">Trello board</a>.</p>
+            <p>Built with : <a href="http://nodejs.org/">Node.js</a>, <a href="http://backbonejs.org/">Backbone.js</a>, <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://www.heroku.com/">Heroku</a> and the status below are generated from <a href="https://trello.com/b/RS0psfP1">Trello board</a>.</p>
             <p></p>
           </div>
           
