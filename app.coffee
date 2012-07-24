@@ -124,5 +124,5 @@ app.get '/logout', (req, res, next) ->
 
 
 # Start!
-app.listen process.env.PORT | nconf.get 'port'
-logger.info 'Server listening at ', process.env.PORT | nconf.get 'port'
+app.listen process.env.PORT || nconf.get 'port'
+logger.info 'Server listening at ', process.env.PORT || nconf.get 'port'
