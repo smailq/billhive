@@ -1,4 +1,5 @@
 PaidBillView = require './PaidBillView'
+UnPaidBillView = require './UnPaidBillView'
 
 class WeekView extends Backbone.View
   template: require '../templates/Week.html'
@@ -8,6 +9,7 @@ class WeekView extends Backbone.View
     @weekData = @options.weekData
     @weekSummary = @options.weekSummary
     @paidBills = @options.paidBills
+    @unpaidBills = @options.unpaidBills
 
     @paidBillsView = []
 
@@ -15,7 +17,12 @@ class WeekView extends Backbone.View
       @paidBillsView.push new PaidBillView
         model: billModel
       
+    @unpaidBillsView = []
 
+    for billModel in @unpaidBills
+      @unpaidBillsView.push new UnPaidBillView
+        model: billModel
+    
 
   render: ->
     #for model in @collection.models
@@ -28,8 +35,14 @@ class WeekView extends Backbone.View
       paidBillView.render()
       ($ '.paid-bills-table', @$el).append paidBillView.$el
 
-    ($ '#cal_today', @$el).tooltip({trigger:'manual'})
-    
-    
+    for unpaidBillView in @unpaidBillsView
+      unpaidBillView.render()
+      ($ '.unpaid-bills-table', @$el).append unpaidBillView.$el
+
+    ($ '.cal-day a', @$el).tooltip
+      trigger:'manual'
+      title: 'Due'
+      placement: 'bottom'
+      animation: false
 
 module.exports = WeekView

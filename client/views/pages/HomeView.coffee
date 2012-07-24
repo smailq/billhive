@@ -62,6 +62,7 @@ class HomeView extends Backbone.View
         weekData: oneWeekData
         weekSummary: @weekSummary[weekNumber]
         paidBills: _.filter(@weekSummary[weekNumber].bills, (x) -> return x.get('paid').length > 0)
+        unpaidBills: _.filter(@weekSummary[weekNumber].bills, (x) -> return x.get('paid').length == 0)
       
 
   render: ->

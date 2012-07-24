@@ -1,5 +1,7 @@
 require 'coffee-script'
 
+fs = require 'fs'
+
 # HTTP framework
 express = require 'express'
 # Underscore utils
@@ -82,16 +84,45 @@ app.configure ->
       "module.exports = #{eco.precompile body};"
     bundle.addEntry __dirname + '/client/main.coffee'
     return bundle
+
+  app.use(app.router)  
   app.use '/', express.static __dirname + '/static'
-  app.use(app.router)
 
 #
 # TODO: Error Handling
 #
 # app.error (err, req, res, next) ->
 
+app.get '/', (req, res, next) -> 
+  
+
+  if not req.session.user?
+    res.redirect '/landing'
+  else
+    next()
+  
+
+templates = 
+  landing: fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
+
+app.get '/landing', (req, res, next) ->
+  # TODO use templates var later
+  res.send eco.render fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
+
+app.get '/demo', (req, res, next) -> 
+  req.session.user = 
+    type: 'demo'
+
+  res.redirect '/'
+
+app.get '/logout', (req, res, next) ->
+  req.session.user = null
+
+  res.redirect '/'
+
+
 
 
 # Start!
-app.listen process.env.PORT
-logger.info 'Server listening at ', process.env.PORT
+app.listen process.env.PORT | nconf.get 'port'
+logger.info 'Server listening at ', process.env.PORT | nconf.get 'port'
