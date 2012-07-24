@@ -45,19 +45,31 @@
         <div class="span4">
           <div class="well">
             <h2>Ideas</h2>
-            <ul id="idea-list"></ul>
+            <ul id="idea-list">
+              <% for card in @ideas: %>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+              <% end %>
+            </ul>
           </div>
         </div>
         <div class="span4">
           <div class="well">
             <h2>In Progress</h2>
-            <ul id="inprogress-list"></ul>
+            <ul id="inprogress-list">
+              <% for card in @inprogress: %>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+              <% end %>
+            </ul>
           </div>
        </div>
        <div class="span4">
           <div class="well">
             <h2>Deployed</h2>
-            <ul id="inprogress-list"></ul>
+            <ul id="inprogress-list">
+              <% for card in @deployed: %>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+              <% end %>
+            </ul>
           </div>
        </div>
       </div>
@@ -72,42 +84,6 @@
   </div>
   <script src="vendor/jquery/jquery-1.7.2.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
-  <script src="vendor/underscore/underscore.js"></script>
-  <script src="vendor/backbone/backbone.js"></script>
-
-  <script type="text/template" id="card-template">
-   hi
-  </script>
-
-  <script type="text/javascript">
-
-    var CardModel = Backbone.Model.extend();
-
-    var IdeaList = Backbone.Collection.extend({
-      model: CardModel,
-      url: "https://api.trello.com/1/lists/4fff3c336bb79be47f0d1f7c/cards"
-    });
-
-    var CardView = Backbone.View.extend({
-      tagName: "li",
-      template: _.template($('#card-template').html()),
-      
-      render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-      }
-    });
-
-
-    var ideas = new IdeaList;
-    ideas.fetch();
-
-    
-
-
-  </script>
-
-
 
 </body>
 </html>

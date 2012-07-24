@@ -2,6 +2,10 @@ require 'coffee-script'
 
 fs = require 'fs'
 
+restler = require 'restler'
+
+async = require 'async'
+
 # HTTP framework
 express = require 'express'
 # Underscore utils
@@ -106,8 +110,29 @@ templates =
   landing: fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
 
 app.get '/landing', (req, res, next) ->
-  # TODO use templates var later
-  res.send eco.render fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
+
+
+  async.parallel([
+      (callback) ->
+        restler.get("https://api.trello.com/1/lists/4fff3c336bb79be47f0d1f7c/cards").on('complete', (data) ->
+          callback null, data
+        )
+      (callback) ->
+        restler.get("https://api.trello.com/1/lists/4fff3c336bb79be47f0d1f7f/cards").on('complete', (data) ->
+          callback null, data
+        )
+      (callback) ->
+        restler.get("https://api.trello.com/1/lists/4fff3c336bb79be47f0d1f81/cards").on('complete', (data) ->
+          callback null, data
+        )
+  ],
+  (err, results) ->
+      res.send eco.render(fs.readFileSync(__dirname + "/static/landing.eco", "utf-8"), {
+        ideas : results[0]
+        inprogress : results[1]
+        deployed : results[2]
+      })
+  )
 
 app.get '/demo', (req, res, next) -> 
   req.session.user = 
