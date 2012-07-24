@@ -20,67 +20,85 @@
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-responsive.min.css">
   <link rel="stylesheet" href="css/landing.css">
 
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33626984-1']);
+    _gaq.push(['_setDomainName', 'billhive.com']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+
 </head>
 <body>
   <div id="wrapper">
 <div class="container">
 
-      <div class="hero-unit">
+      
         <div class="row">
-          <div class="span6">
+          <div class="span3 hero-unit">
             <h1>BILLHIVE</h1>
-        <p>Organize your paper/electronic bills in one place.</p>
-        <p><a class="btn btn-primary btn-large">See Demo »</a></p>
-
+              <p>Organize all your bills in one place.</p>
+              <p><a href="/demo" class="btn btn-primary btn-large">See Demo »</a></p>
           </div>
-          <div class="span4">
-            <img src="img/billhive_screen.png"></img>
+          <div class="span6 hero-unit" style="width:630px;">
+            <p>This site is currently in heavy development as a side project.</p>
+            <hr/>
+            <p>Built with : <a href="http://nodejs.org/">Node.js</a>, <a href="http://backbonejs.org/">Backbone.js</a>, <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://www.heroku.com/">Heroku</a> and the status below are generated from <a href="https://trello.com/b/RS0psfP1">Trello board</a>.</p>
+            <p></p>
           </div>
+          
         </div>
-        
-        
-      </div>
-
+  
       <div class="row">
         <div class="span4">
-          <h2>Import Bills From Anywhere</h2>
-          <ul>
-            <li>Take picture of your bills with iPhone/Android.</li>
-            <li>Upload image/pdf of your bill.</li>
-            <li>Forward bills sent by email to your BillHive account.</li>
-            <li>Drag-and-Drop your bills to DropBox folder.</li>
-            <li>Or, manually enter the bill.</li>
-          </ul>
-          
+          <div class="well">
+            <h2>Ideas</h2>
+            <ul id="idea-list">
+              <% for card in @ideas: %>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+              <% end %>
+            </ul>
+          </div>
         </div>
         <div class="span4">
-          <h2>Alerts</h2>
-           <p>Email, SMS, Google Calendar</p>
+          <div class="well">
+            <h2>In Progress</h2>
+            <ul id="inprogress-list">
+              <% for card in @inprogress: %>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+              <% end %>
+            </ul>
+          </div>
        </div>
-        <div class="span4">
-          <h2>Graphs</h2>
-          <p>See where your moey went</p>
-          
-        </div>
+       <div class="span4">
+          <div class="well">
+            <h2>Deployed</h2>
+            <ul id="inprogress-list">
+              <% for card in @deployed: %>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+              <% end %>
+            </ul>
+          </div>
+       </div>
       </div>
-
+      
       <hr/>
-
-
-
-      <hr/>
-
       <footer>
-        <p>© Company 2012</p>
+        <p>© <a href="http://www.linkedin.com/in/kyulee0">Kyu Lee</a> 2012</p>
       </footer>
 
     </div>
 
-
-
-
   </div>
   <script src="vendor/jquery/jquery-1.7.2.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
+
 </body>
 </html>
