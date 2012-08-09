@@ -8,6 +8,7 @@ async = require 'async'
 
 # HTTP framework
 express = require 'express'
+
 # Underscore utils
 _ = require('underscore')._
 # Configuration Management
@@ -29,13 +30,11 @@ winston.loggers.add 'backend',
     colorize: 'true'
     timestamp: true
 
-# MySQL logger
-winston.loggers.add 'mysql',
-  console:
-    colorize: 'true'
-    timestamp: true
-
 logger = winston.loggers.get 'frontend'
+
+# Validator
+check = require('validator').check
+sanitize = require('validator').sanitize
 
 # Styler
 eco = require 'eco'
@@ -47,13 +46,8 @@ nib = require 'nib'
 eco = require 'eco'
 
 
-
-
-# PooledMySQLClient
-pooledMysqlClient = require('./pooledmysql')({ nconf: nconf, logger: winston.loggers.get 'mysql' })
-
 # Initialize backend with configs and logger
-backend = require('./backend')({ nconf: nconf, logger: winston.loggers.get('backend'), mysqlClient: pooledMysqlClient })
+backend = require('./backend')({ nconf: nconf, logger: winston.loggers.get('backend') })
 
 # Main app
 app = module.exports = express.createServer()
@@ -98,19 +92,16 @@ app.configure ->
 # app.error (err, req, res, next) ->
 
 app.get '/', (req, res, next) -> 
-  
-
   if not req.session.user?
     res.redirect '/landing'
   else
     next()
-  
+
 
 templates = 
   landing: fs.readFileSync __dirname + "/static/landing.eco", "utf-8"
 
 app.get '/landing', (req, res, next) ->
-
 
   async.parallel([
       (callback) ->
@@ -137,13 +128,54 @@ app.get '/landing', (req, res, next) ->
 app.get '/demo', (req, res, next) -> 
   req.session.user = 
     type: 'demo'
-
   res.redirect '/'
 
 app.get '/logout', (req, res, next) ->
   req.session.user = null
-
   res.redirect '/'
+
+####### API ########
+
+# Add new user
+# @param string username
+# @param string password
+app.post '/api/user', (req, res, next) ->
+
+  # validate
+  check(req.body.username).len(3,64)
+  check(req.body.password).len(6,128)
+
+  backend.addUser req.body.username, req.body.password
+
+  res.send ''
+
+# Get currently logged in user's info
+# @required Authorization: [auth_token]
+app.get '/api/user', (req, res, next) ->
+
+  check(req.header 'Authorization').isUUID(4)
+
+  backend.getUserInfo req.header('Authorization'), (err, user)->
+    if err
+      throw err
+    else
+      res.send user
+  
+
+# Get new auth token for a user
+# @param string username
+# @param string password
+app.post '/api/authtoken', (req, res, next) ->
+
+  # validate
+  check(req.body.username).len(3,64)
+  check(req.body.password).len(6,128)
+
+  backend.createAuthToken req.body.username, req.body.password, (err, token) ->
+    if err
+      throw err
+    else
+      res.send token
 
 
 
