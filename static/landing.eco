@@ -58,7 +58,7 @@
       <div class="row">
         <div class="span4">
           <div class="well">
-            <h2>Ideas</h2>
+            <h2>Ideas/Todo</h2>
             <ul id="idea-list">
               <% for card in @ideas: %>
                 <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
