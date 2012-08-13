@@ -37,25 +37,25 @@
 </head>
 <body>
   <div id="wrapper">
-<div class="container">
+    <div class="container"> 
 
-      
-        <div class="row">
-          <div class="span3 hero-unit">
-            <h1>BILLHIVE</h1>
-              <p>Organize all your bills in one place.</p>
-              <p><a href="/demo" class="btn btn-primary btn-large">See Demo »</a></p>
-          </div>
-          <div class="span6 hero-unit" style="width:630px;">
-            <p>This site is currently in heavy development as a side project.</p>
-            <hr/>
-            <p>Built with : <a href="http://nodejs.org/">Node.js</a>, <a href="http://backbonejs.org/">Backbone.js</a>, <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://www.heroku.com/">Heroku</a> and the status below are generated from <a href="https://trello.com/b/RS0psfP1">Trello board</a>.</p>
-            <p></p>
-          </div>
-          
-        </div>
-  
       <div class="row">
+        <div class="span3 hero-unit">
+          <h1>BILLHIVE</h1>
+            <p>Organize all your bills in one place.</p>
+            <p><a href="/demo" class="btn btn-primary btn-large">See Demo »</a></p>
+        </div>
+        <div class="span6 hero-unit" style="width:630px;">
+          <p>This site is currently in heavy development as a side project.</p>
+          <p>
+            <a href="mailto:smailq@gmail.com&subject=BillHive%20Beta%20Access%20Request" class="btn btn-info btn-large">Request Beta Account</a><a data-toggle="modal" href="#loginModal" class="btn btn-large" style="margin-left:50px;">Beta User Login »</a>
+          <hr/>
+          <p>Built with : <a href="http://nodejs.org/">Node.js</a>, <a href="http://backbonejs.org/">Backbone.js</a>, <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://www.heroku.com/">Heroku</a> and the status below are generated from <a href="https://trello.com/b/RS0psfP1">Trello board</a>.</p>
+        </div>
+      </div>
+    
+      <div class="row">
+
         <div class="span4">
           <div class="well">
             <h2>Ideas/Todo</h2>
@@ -66,6 +66,7 @@
             </ul>
           </div>
         </div>
+
         <div class="span4">
           <div class="well">
             <h2>In Progress</h2>
@@ -76,6 +77,7 @@
             </ul>
           </div>
        </div>
+
        <div class="span4">
           <div class="well">
             <h2>Recently Deployed</h2>
@@ -89,15 +91,45 @@
       </div>
       
       <hr/>
+
       <footer>
         <p><a href="http://www.linkedin.com/in/kyulee0">Kyu Lee</a> 2012</p>
       </footer>
 
     </div>
-
   </div>
+
   <script src="vendor/jquery/jquery-1.7.2.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
+
+  <!-- Modals -->
+  <div id="loginModal" class="modal hide fade span3" style="display: none;">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Login</h3>
+    </div>
+    <div class="modal-body" style="text-align:left;">
+      <form class="form">
+        <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="usernameInput">Username</label>
+            <div class="controls">
+              <input  style="text-align:center;font-size:20px;" class="" id="usernameInput" type="text">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="passwordInput">Password</label>
+            <div class="controls">
+              <input  style="text-align:center;font-size:20px;" class="" id="passwordInput" type="password">
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-primary">Login</a>
+    </div>
+  </div>
 
 </body>
 </html>
