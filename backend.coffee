@@ -15,12 +15,20 @@ class Backend
 
   # Create new auth token
   createAuthToken: (username, password, cb) ->
-  	token = { auth_token : uuid.v4() }
-  	db.users.update { username: username, password: sha1(password + 'sa1t999') }, { $set : { auth_token: token.auth_token } }, (err) ->
-  		if err
-  			cb err
-  		else
-  			cb null, token
+
+    db.users.findOne { username: username, password: sha1(password + 'sa1t999') }, (err, user) ->
+      if err
+        cb err
+      else
+        if user
+          token = { auth_token : uuid.v4() }
+          db.users.update { username: username, password: sha1(password + 'sa1t999') }, { $set : { auth_token: token.auth_token } }, (err) ->
+          if err
+            cb err
+          else
+            cb null, token
+        else
+          cb null, null
 
   getUserInfo: (token, cb) ->
   	db.users.findOne { auth_token: token }, (err, user) ->

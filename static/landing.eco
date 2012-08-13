@@ -99,9 +99,6 @@
     </div>
   </div>
 
-  <script src="vendor/jquery/jquery-1.7.2.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.js"></script>
-
   <!-- Modals -->
   <div id="loginModal" class="modal hide fade span3" style="display: none;">
     <div class="modal-header">
@@ -114,22 +111,40 @@
           <div class="control-group">
             <label class="control-label" for="usernameInput">Username</label>
             <div class="controls">
-              <input  style="text-align:center;font-size:20px;" class="" id="usernameInput" type="text">
+              <input style="text-align:center;font-size:20px;" class="" id="usernameInput" type="text">
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="passwordInput">Password</label>
             <div class="controls">
-              <input  style="text-align:center;font-size:20px;" class="" id="passwordInput" type="password">
+              <input style="text-align:center;font-size:20px;" class="" id="passwordInput" type="password">
             </div>
           </div>
         </fieldset>
       </form>
     </div>
     <div class="modal-footer">
-      <a class="btn btn-primary">Login</a>
+      <a id="doLogin" class="btn btn-primary">Login</a>
     </div>
   </div>
+
+  <script src="vendor/jquery/jquery-1.7.2.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.js"></script>
+
+  <script>
+    $("#doLogin").click(function() {
+      var loginData = { username: $("#usernameInput").val(), password: $("#passwordInput").val() };
+
+      // TODO : Validate
+      
+      $.post("/api/authtoken", loginData,
+        function(data) {
+          console.log(data);
+      });
+
+    });
+  </script>
+
 
 </body>
 </html>
