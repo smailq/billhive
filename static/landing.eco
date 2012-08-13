@@ -90,6 +90,7 @@
        </div>
       </div>
       
+      <p style="text-align:right;"> Updated @ <%= @deployedDate %></p>
       <hr/>
 
       <footer>

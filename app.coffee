@@ -91,6 +91,9 @@ app.configure ->
 #
 # app.error (err, req, res, next) ->
 
+deployedDate = new Date()
+
+
 app.get '/', (req, res, next) -> 
   if not req.session.user?
     res.redirect '/landing'
@@ -122,6 +125,7 @@ app.get '/landing', (req, res, next) ->
         ideas : results[0]
         inprogress : results[1]
         deployed : results[2]
+        deployedDate : deployedDate
       })
   )
 
