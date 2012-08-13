@@ -94,6 +94,8 @@ app.configure ->
 deployedDate = new Date()
 deployedCommit = process.env.COMMIT_HASH
 
+console.log process.env
+
 app.get '/', (req, res, next) -> 
   if not req.session.user?
     res.redirect '/landing'
