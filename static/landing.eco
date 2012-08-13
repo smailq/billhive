@@ -90,7 +90,7 @@
        </div>
       </div>
       
-      <p style="text-align:right;"> Last Update : <%= @deployedDate %> (<%= @deployedCommit %>)</p>
+      <p style="text-align:right;"> Last Updated At : <%= @deployedDate %></p>
       <hr/>
 
       <footer>
