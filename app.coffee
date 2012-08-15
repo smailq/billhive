@@ -46,6 +46,27 @@ nib = require 'nib'
 eco = require 'eco'
 
 
+
+util = require('util')
+
+
+AbstractError = (msg, constr) ->
+  Error.captureStackTrace(this, constr || this)
+  this.message = msg || 'Error'
+
+util.inherits(AbstractError, Error)
+AbstractError.prototype.name = 'Abstract Error'
+
+ValidationError = (msg) ->
+  ValidationError.super_.call(this, 'Invalid Format - ' + msg, this.constructor)
+
+util.inherits(ValidationError, AbstractError)
+ValidationError.prototype.name = 'Validation Error'
+
+
+
+
+
 # Initialize backend with configs and logger
 backend = require('./backend')({ nconf: nconf, logger: winston.loggers.get('backend') })
 
@@ -89,7 +110,18 @@ app.configure ->
 #
 # TODO: Error Handling
 #
-# app.error (err, req, res, next) ->
+app.error (err, req, res, next) ->
+
+  if err instanceof ValidationError
+    res.status(400).send
+      message: err.message
+      code: 1000
+  else
+    console.log err.stack
+    res.status(500).send
+      message: "Internal Error"
+      code: 3000
+  
 
 deployedDate = new Date()
 
@@ -171,14 +203,22 @@ app.get '/api/user', (req, res, next) ->
 app.post '/api/authtoken', (req, res, next) ->
 
   # validate
-  check(req.body.username).len(3,64)
-  check(req.body.password).len(6,128)
-
+  try
+    check(req.body.username).len(3,64)
+    check(req.body.password).len(6,128)
+  catch error
+    throw new ValidationError(error.message)
+  
   backend.createAuthToken req.body.username, req.body.password, (err, token) ->
     if err
       throw err
     else
-      res.send token
+      if token == null
+        res.status(400).send
+          message: 'Wrong Username and Password'
+          code: 2000
+      else
+        res.send token
 
 
 

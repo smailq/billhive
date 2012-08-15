@@ -121,6 +121,7 @@
               <input style="text-align:center;font-size:20px;" class="" id="passwordInput" type="password">
             </div>
           </div>
+          <p id="errorMessage" class="help-block hide" style="color:#B94A48;"></p>
         </fieldset>
       </form>
     </div>
@@ -133,15 +134,25 @@
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
 
   <script>
+    $("#passwordInput").keyup(function(event) {
+      if (event.keyCode == 13) {
+        $("#doLogin").click();    
+      } 
+    });
     $("#doLogin").click(function() {
       var loginData = { username: $("#usernameInput").val(), password: $("#passwordInput").val() };
 
       // TODO : Validate
       
-      $.post("/api/authtoken", loginData,
-        function(data) {
+      var jqxhr = $.post("/api/authtoken", loginData, function(data) {
+          
           console.log(data);
-      });
+        }, 'json')
+        .error(function(data) {
+          respData = jQuery.parseJSON(data.responseText);
+          $('#errorMessage').removeClass('hide').html(respData.message || "Sorry, there was an error. Please try again.");  
+        });
+        
 
     });
   </script>
