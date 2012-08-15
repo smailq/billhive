@@ -72,7 +72,7 @@
             <h2>In Progress</h2>
             <ul id="inprogress-list">
               <% for card in @inprogress: %>
-                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments )</li>
+                <li><a href="<%= card.url %>"><%= card.name %></a><br/>( <%= card.badges.votes %> votes, <%= card.badges.comments %>  comments, <%= card.badges.checkItemsChecked %> / <%= card.badges.checkItems %> done )</li>
               <% end %>
             </ul>
           </div>
