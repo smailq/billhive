@@ -48,7 +48,7 @@
         <div class="span6 hero-unit" style="width:630px;">
           <p>This site is currently in heavy development as a side project.</p>
           <p>
-            <a href="mailto:smailq@gmail.com&subject=BillHive%20Beta%20Access%20Request" class="btn btn-info btn-large">Request Beta Account</a><a data-toggle="modal" href="#loginModal" class="btn btn-large" style="margin-left:50px;">Beta User Login »</a>
+            <a href="mailto:smailq@gmail.com&subject=BillHive%20Beta%20Access%20Request" class="btn btn-info btn-large">Request Beta Account</a><a data-toggle="modal" href="#loginModal" class="btn btn-large" style="margin-left:50px;" id="loginButton">Beta User Login »</a>
           <hr/>
           <p>Built with : <a href="http://nodejs.org/">Node.js</a>, <a href="http://backbonejs.org/">Backbone.js</a>, <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://www.heroku.com/">Heroku</a> and the status below are generated from <a href="https://trello.com/b/RS0psfP1">Trello board</a>.</p>
         </div>
@@ -134,6 +134,10 @@
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
 
   <script>
+    $("#loginModal").bind('shown', function(event) {
+      $("#usernameInput").focus();
+    });
+    
     $("#passwordInput").keyup(function(event) {
       if (event.keyCode == 13) {
         $("#doLogin").click();    
