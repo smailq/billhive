@@ -1,4 +1,6 @@
-*.swp
-*.DS_Store
-*.log
-node_modules
+pom.xml
+*jar
+/lib/
+/classes/
+/targets/
+.lein-deps-sum
