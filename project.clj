@@ -1,4 +1,3 @@
-
 (defproject billhive "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
@@ -8,5 +7,3 @@
   :ring {:handler billhive.handler/app}
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.3"]]}})
-
-
