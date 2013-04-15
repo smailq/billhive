@@ -1,0 +1,295 @@
+
+<html>
+<head>
+<link rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="header">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">BillHive</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a href="#home">Summary</a></li>
+            <li><a href="#accounts">Accounts</a></li>
+            <li><a href="#graphs">Graphs</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pages" style="margin-top:60px;">
+
+
+<div class="modal hide fade" id="newbill">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add New Bill</h3>
+  </div>
+  <div class="modal-body">
+    <div>
+      <form>
+        <label>Account Name</label>
+        <input type="text">
+
+        <div class="row">
+          <div class="span2" style="width:110px;">
+            <label>Amount</label>
+            <div class="controls">
+              <div class="input-prepend">
+              <span class="add-on">$</span><input class="input-mini" id="inputIcon" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="span2" style="width:110px;">
+            <label>Min. Amount</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on">$</span><input class="input-mini" id="inputIcon" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="span2">
+            <label>Due Date</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-calendar"></i></span><input class="input-small" id="inputIcon" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a href="#" class="btn btn-small" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary"  data-dismiss="modal">Save</a>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="row" style="margin-top:0px;">
+    <div class="span8">
+      <h1>Your Bill Payment Summary</h1>
+    </div>
+    <div class="span4 pull-right" style="text-align:right;">
+      <a class="btn btn-large btn-primary" href="#newbill" data-toggle="modal" style="font-size:25px;">+ Add New Bill</a>
+    </div>
+  </div>
+<hr/>
+  <div class="row" style="margin-top:10px;">
+    <div class="span7" style="text-align:center;">
+      <h1 style="font-size:60px;color:#F89406;"><small>Total Due</small> ${{total_due}} <small>within 23 days</small></h1>
+    </div>
+    <div class="span7 pull-right" style="text-align:center;">
+      <h1 style="font-size:60px;color:#08C;"><small>Today is</small> July 3rd <small>2013</small></h1>
+    </div>
+  </div>
+  
+  <hr/>
+  <div id="weekly">
+
+
+<div class="row" style="margin-bottom:10px;">
+  <div class="span12">
+    <h1>July<small> week of 32 </small></h1>
+    <div class="pagination pagination-centered">
+      <ul>
+        <!-- <% for day in @weekData: %> -->
+        <li class="cal-day">
+          <a href="#">
+            <h2>
+              22
+              <small>Mon</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 2321
+          </a>
+        </li>
+        <li class="cal-day">
+          <a href="#">
+            <h2>
+              23
+              <small>Tue</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 212
+          </a>
+        </li>
+        <li class="cal-day">
+          <a href="#">
+            <h2>
+              23
+              <small>Wed</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 212
+          </a>
+        </li>
+        <li class="cal-day">
+          <a href="#">
+            <h2>
+              23
+              <small>Thu</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 212
+          </a>
+        </li>
+        <li class="cal-day">
+          <a href="#">
+            <h2>
+              23
+              <small>Fri</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 212
+          </a>
+        </li>
+        <li class="cal-day">
+          <a href="#">
+            <h2 style="color:#D14;">
+              23
+              <small>Sat</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 212
+          </a>
+        </li>
+        <li class="cal-day">
+          <a href="#">
+            <h2  style="color:#D14;">
+              23
+              <small>Sun</small>
+            </h2>
+            <!--$ <%= if day.bills.length > 0 then day.bills.reduce( ((x,y) -> x + y.get('amount')), 0) else 0 %>-->
+            $ 212
+          </a>
+        </li>
+
+        <!-- <% end %> -->
+      </ul>
+    </div>
+  </div>  
+</div>
+<div class="row">
+
+  <!--
+  <% if @weekSummary.total_paid == 0 and @weekSummary.total_amount == 0: %>
+    <div  style="text-align:center;">
+      <h1><small>No bills to pay for this week! YAY!</small></h1>
+    </div>
+  <% else: %>
+  -->
+
+    <div class="span6">
+
+      <!--
+      <% if @weekSummary.total_paid == 0: %>
+
+        <div style="text-align:center;">
+          <h1><small>You didn't pay any bills for this week yet...</small></h1>
+        </div>
+
+      <% else: %>
+      -->
+
+        <h1><small>You have paid </small><span style="color:#469947;"> $3,211 </span> <small>this week</small></h1>
+        <table class="table" style="margin-top:10px;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Paid</th>
+            </tr>
+          </thead>
+          <tbody class="paid-bills-table">
+
+<td>
+  <h3>
+    <a href="#">Rogers</a>
+    <!--<% for paid in @bill.get('paid'): %>-->
+      <br/><small style="margin-left:10px;">Paid <span style="color:#469947;font-weight:bold;">$344</span> on July 3rd</small>
+    <!--<% end %>-->
+  </h3>
+</td>
+<td>
+  <h3>$323</h3>
+</td>
+<td>
+  <h3 style="color:#469947;">$323</h3>
+  <!--
+  <% if @bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) == @bill.get('amount'): %>
+    <span class="label label-success">Fully Paid</span>
+  <% else if @bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) < @bill.get('amount'): %>
+    <span class="label label-info">Under Paid</span>
+  <% else if @bill.get('paid').reduce( ((x,y) -> x + y['amount']), 0) > @bill.get('amount'): %>
+    <span class="label label-info">Over Paid</span>
+  <% end %>
+-->
+</td>
+
+
+
+
+
+          </tbody>
+        </table>
+        <!--
+      <% end %>
+    -->
+    </div>
+
+
+    <div class="span6">
+      <% if @weekSummary.total_amount == 0: %>
+        <div style="text-align:center;">
+          <h1><small>You've paid all bills for this week! YAY!</small></h1>
+        </div>
+      <% else: %>
+        <h1><small>You have </small> <span style="color:#F89406;"> $<%= @weekSummary.total_amount %> </span> <small>left to pay</small></h1>
+        <table class="table"  style="margin-top:10px;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="unpaid-bills-table"></tbody>
+        </table>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<hr/>
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+</body>
